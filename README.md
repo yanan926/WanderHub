@@ -20,7 +20,6 @@ Planning a trip involves multiple steps, including researching destinations, fin
 ### Features
 
 - As a user, I want to explore visual inspiration through a curated collection of high-quality travel images.
-- As a user, I want to discover personalized travel recommendations based on my preferences, budget, and travel dates.
 - As a user, I want to create and save personalized travel itineraries with ease.
 - As a user, I want to engage with a community of fellow travelers, sharing experiences, tips, and recommendations.
 
