@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+  AppBar,
+  Button,
+  Typography,
+  Toolbar,
+  Container,
+  Box,
+} from "@mui/material";
+import ClusterMap from "./ClusterMap/ClusterMap";
+import cities from "./data";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const [count, setCount] = useState(0)
+  let citiesData = cities.map((data) => {
+    return {
+      properties: {
+        id: uuidv4(),
+        title: `${data.city}, ${data.state}`,
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [data.longitude, data.latitude, 0],
+      },
+    };
+  });
+
+  const getRandomSubset = (array, size) => {
+    const shuffledArray = array.slice(); // Create a shallow copy to avoid modifying the original array
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray.slice(0, size);
+  };
+
+  getRandomSubset(citiesData, 300)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="container">
+      <ClusterMap cities={citiesData} />
+    </div>
+  );
 }
 
-export default App
+export default App;
