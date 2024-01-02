@@ -23,23 +23,6 @@ function App() {
     };
   });
 
-  let vermont = citiesData.find((city)=> city.properties.title === 'Burlington, Vermont')
-  console.log(vermont)
-
-  const getRandomSubset = (array, size) => {
-    const shuffledArray = array.slice(); // Create a shallow copy to avoid modifying the original array
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray.slice(0, size);
-  };
-
-  getRandomSubset(citiesData, 300);
-
   return (
     <BrowserRouter>
       <Routes>
