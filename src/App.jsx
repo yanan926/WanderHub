@@ -8,11 +8,11 @@ import imageList from "./image";
 
 
 function App() {
-  let citiesData = cities.map((data) => {
+  let citiesData = cities.map((data, index) => {
     const cityId = uuidv4();
     return {
       properties: {
-        id: cityId,
+        id: '' + index,
         title: `${data.city}, ${data.state}`,
         image: `${imageList[Math.floor(Math.random() * imageList.length)]}.`,
       },
