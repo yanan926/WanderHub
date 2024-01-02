@@ -19,7 +19,6 @@ const ClusterMap = ({ cities }) => {
       map.addSource("earthquakes", {
         type: "geojson",
         data: { features: cities },
-        // "https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
         cluster: true,
         clusterMaxZoom: 14,
         clusterRadius: 50,
@@ -95,10 +94,10 @@ const ClusterMap = ({ cities }) => {
       });
 
       map.on("click", "unclustered-point", (e) => {
+        console.log(e.features[0])
         const coordinates = e.features[0].geometry.coordinates.slice();
-        // const mag = e.features[0].properties.mag;
-        // const tsunami = e.features[0].properties.tsunami === 1 ? "yes" : "no";
         const cityTitle = e.features[0].properties.title;
+        const cityId = e.features[0].properties.id;
 
         while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
@@ -106,7 +105,7 @@ const ClusterMap = ({ cities }) => {
 
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<h4>${cityTitle}<h4/>`)
+          .setHTML(`<strong><a href="/city/${cityId}">${cityTitle}</a></strong>`)
           .addTo(map);
       });
 
@@ -127,13 +126,8 @@ const ClusterMap = ({ cities }) => {
   return (
     <div
       id="map"
-      style={
-        {
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: "10%",
-        width: "80%",
+      style={{
+        width: "100%",
         height: "500px",
       }}
     />
