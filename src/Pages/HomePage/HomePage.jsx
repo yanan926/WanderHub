@@ -36,8 +36,6 @@ function HomePage({citiesData}) {
                 </Typography>
                 <Typography>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quibusdam dolores vero perferendis laudantium, consequuntur
-                  voluptatibus nulla architecto.
                 </Typography>
               </CardContent>
               <CardActions>
