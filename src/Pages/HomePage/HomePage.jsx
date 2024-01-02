@@ -1,4 +1,4 @@
-import ClusterMap from "../../ClusterMap/ClusterMap";
+import ClusterMap from "../../Components/ClusterMap/ClusterMap";
 import {
   Container,
   Card,

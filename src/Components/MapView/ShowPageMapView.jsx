@@ -32,7 +32,7 @@ const ShowPageMapView= ({ city }) => {
     return () => map.remove();
   }, [city]); // Re-run effect when city changes
 
-  return <div ref={mapContainerRef} style={{ width: '100%', height: '400px' }} />;
+  return <div ref={mapContainerRef} style={{ width: '100%', height: '200px' }} />;
 };
 
 export default ShowPageMapView;
