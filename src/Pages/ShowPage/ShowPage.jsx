@@ -11,9 +11,11 @@ import {
   Button,
   Container,
   CssBaseline,
+  CircularProgress
 } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
+import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 
 function ShowPage({ citiesData }) {
   const { cityId } = useParams();
@@ -27,11 +29,37 @@ function ShowPage({ citiesData }) {
   const [travelDays, setTravelDays] = useState(null);
   const [error, setError] = useState("");
   const [itinerary, setItineray] = useState("");
+  const [loading, setLoading] = useState(false)
+
+
+  const validCheck = () => {
+    let valid = false
+    if (!travelDays || travelDays < 1) {
+      setError("Please enter a valid number of days.");
+    } else if (travelDays > 15) {
+      setError("Please enter number less than 15");
+    } else {
+      setError("");
+      valid = true
+    }
+    return valid
+  }
+
+  const handleBlur = () => {
+    // Perform validation when the user stops typing
+    validCheck()
+  };
+
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(travelDays);
-    let data = JSON.stringify({
+    if(!validCheck()) {
+      return
+    }
+    setLoading(true); 
+    const data = JSON.stringify({
       model: "gpt-3.5-turbo",
       messages: [
         {
@@ -40,8 +68,20 @@ function ShowPage({ citiesData }) {
         },
         {
           role: "user",
-          content: `Create an Itinerary for a ${travelDays}-day trip to ${cityData.properties.title}. Make sure to include the most beautiful yet safe places I can explore. Include a moderate amount of things to do since I also want some time to relax. Please format your answer only in p and h3 as JSX tags.`,
+          content: `Create an itinerary for a ${travelDays}-day trip to ${cityData.properties.title}.`,
         },
+        {
+          role: "user",
+          content: "Include the most beautiful yet safe places to explore.",
+        },
+        {
+          role: "user",
+          content: "Include a moderate amount of things to do, allowing for some relaxation time.",
+        },
+        {
+          role: "user",
+          content: "Format your answer using only p and h3 as JSX tags.",
+        }
       ],
     });
 
@@ -64,19 +104,11 @@ function ShowPage({ citiesData }) {
       setItineray(result);
     } catch (err) {
       console.log(err);
+    }finally {
+      setLoading(false); // Set loading to false after API call completes
     }
   };
 
-  const handleBlur = () => {
-    // Perform validation when the user stops typing
-    if (!travelDays || travelDays < 1) {
-      setError("Please enter a valid number of days.");
-    } else if (travelDays > 7) {
-      setError("Please enter number less than 7");
-    } else {
-      setError("");
-    }
-  };
 
   return (
     <Box sx={{ width: "90%", margin: "auto", marginTop: "3rem" }}>
@@ -108,7 +140,7 @@ function ShowPage({ citiesData }) {
         </Grid>
 
         <Grid item xs={12}>
-          <Container component="main" maxWidth="xs">
+          <Container maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
@@ -124,7 +156,6 @@ function ShowPage({ citiesData }) {
               <Box
                 component="form"
                 onSubmit={handleSubmit}
-                noValidate
                 sx={{ mt: 1, mb: 5 }}
               >
                 <TextField
@@ -134,7 +165,7 @@ function ShowPage({ citiesData }) {
                   inputProps={{ min: 1 }}
                   label="Number of Days Stay"
                   name="Number"
-                  autoFocus
+                  // autoFocus
                   required
                   error={Boolean(error)}
                   helperText={error}
@@ -146,15 +177,17 @@ function ShowPage({ citiesData }) {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  disabled={loading}
                 >
-                  Click to generate a travel plan
+                  Generate Travel Plan
                 </Button>
+                {loading && <CircularWithValueLabel/>}
               </Box>
             </Box>
           </Container>
         </Grid>
         <Grid item xs={12}>
-          <div dangerouslySetInnerHTML={{ __html: itinerary }} />
+          <Container dangerouslySetInnerHTML={{ __html: itinerary }} maxWidth="sm"/>
         </Grid>
       </Grid>
     </Box>
