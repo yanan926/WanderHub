@@ -10,7 +10,6 @@ import "./ImagesCarousel.scss"
 import { DefaultSettingsT} from '../Settings/Settings';
 
 const ImagesCarousel = () => {
-    // const [settings, setSettings] = useState(DefaultSettingsT);
 
     return (
             <Carousel
@@ -36,8 +35,8 @@ function Project({item}) {
 
         >
             <img  style={{height: 'auto'} }
-             srcSet={`${item.href}?w=164&h=328&fit=crop&auto=format&dpr=2 2x`}
-             src={`${item.href}?w=164&h=328&fit=crop&auto=format`}
+             srcSet={`${item.href}?w=164&h=400&fit=crop&auto=format&dpr=2 2x`}
+             src={`${item.href}?w=164&h=400&fit=crop&auto=format`}
             />
         </Paper>
     )

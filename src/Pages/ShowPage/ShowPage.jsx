@@ -12,13 +12,16 @@ import {
   Container,
   CssBaseline,
   Rating,
-  CardActions,
+  ImageList,
+  ImageListItem
 } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 import TravellerReview from "../../Components/TravellerReview";
 import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
+import { v4 as uuidv4 } from "uuid";
+import imageList from "../../image";
 
 function ShowPage({ citiesData }) {
   const { cityId } = useParams();
@@ -31,27 +34,32 @@ function ShowPage({ citiesData }) {
 
   const travelReviews = [
     {
+      key: uuidv4(),
       name: "John Doe",
       reviewText: "Breathtaking views and unforgettable experiences!",
       reviewValue: 3,
     },
     {
+      key: uuidv4(),
       name: "Jane Smith",
       reviewText: "The destination exceeded my expectations. A must-visit!",
       reviewValue: 4,
     },
     {
+      key: uuidv4(),
       name: "Alex Johnson",
       reviewText: "Immersive cultural experience. Loved every moment.",
       reviewValue: 3,
     },
     {
+      key: uuidv4(),
       name: "Emily Davis",
       reviewText:
         "Captivating landscapes and rich history. A 5-star destination.",
       reviewValue: 5,
     },
     {
+      key: uuidv4(),
       name: "Michael Brown",
       reviewText: "Interesting but room for improvement. Worth exploring.",
       reviewValue: 1,
@@ -62,7 +70,9 @@ function ShowPage({ citiesData }) {
   const [error, setError] = useState("");
   const [itinerary, setItineray] = useState("");
   const [loading, setLoading] = useState(false);
-  const [review, setReview] = useState(0);
+  const [reviewValue, setReviewValue] = useState(0);
+  const [reviewText, setReviewText] = useState("");
+  const [reviewList, setReviewList] = useState(travelReviews);
 
   const validCheck = () => {
     let valid = false;
@@ -140,8 +150,12 @@ function ShowPage({ citiesData }) {
     }
   };
 
-  const handleReviewSubmit = () => {
+  const handleReviewSubmit = (e) => {
     e.preventDefault();
+    setReviewList([
+      { key: uuidv4(), name: "Yanan Liu", reviewText, reviewValue },
+      ...reviewList,
+    ]);
   };
 
   return (
@@ -173,10 +187,24 @@ function ShowPage({ citiesData }) {
           <ShowPageMapView city={cityData} />
         </Grid>
 
-        <Grid item xs={12} md={10} sx={{margin:"auto"}}>
-        <ImagesCarousel/>
+        <Grid item xs={12} md={6}>
+          <ImagesCarousel />
         </Grid>
 
+        <Grid item xs={12} md={6}>
+          <ImageList sx={{ height: 400, marginTop:"0"}} cols={3} rowHeight={164}>
+            {imageList.map((item) => (
+              <ImageListItem key={item.img}>
+                <img
+                  srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                  alt={item}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Grid>
 
         <Grid item xs={12} md={6}>
           <Container maxWidth="xs">
@@ -247,9 +275,9 @@ function ShowPage({ citiesData }) {
               >
                 <Rating
                   name="review"
-                  value={review}
+                  value={reviewValue}
                   onChange={(event, newValue) => {
-                    setReview(newValue);
+                    setReviewValue(newValue);
                   }}
                 />
                 <TextField
@@ -260,6 +288,7 @@ function ShowPage({ citiesData }) {
                   placeholder="Review Text"
                   multiline
                   rows={3}
+                  onChange={(e) => setReviewText(e.target.value)}
                   required
                 />
                 <Button
@@ -282,8 +311,15 @@ function ShowPage({ citiesData }) {
           />
         </Grid>
 
-        <Grid item xs={12} md={6}>
-        {travelReviews.map((traveller)=><TravellerReview name= {traveller.name} reviewText={traveller.reviewText} reviewValue={traveller.reviewValue}/>)}
+        <Grid item xs={12} md={6} sx={{ margin: "auto" }}>
+          {reviewList.map((traveller, index) => (
+            <TravellerReview
+              key={index}
+              name={traveller.name}
+              reviewText={traveller.reviewText}
+              reviewValue={traveller.reviewValue}
+            />
+          ))}
         </Grid>
       </Grid>
     </Box>
