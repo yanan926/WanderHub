@@ -235,17 +235,18 @@ function ShowPage({ citiesData }) {
                     sx={{mb: 1}}
                     size="small"
                   />
-                  <TextField type="text" fullWidth placeholder="Or post your image's url Link here" size="small"/>
+                  <Box sx={{display:"flex", alignItems:'center'}}>
+                  <TextField type="text" placeholder="Or post your image's url Link here" size="small" sx={{width:'70%', mr:3}}/>
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleUpload}
-                    sx={{ mt: 1 }}
-                    fullWidth
                     size="small"
+                    sx={{width:'40%', p:1}}
                   >
                     Share Your Image
                   </Button>
+                  </Box>                
               </Box>
         </Grid>
 
