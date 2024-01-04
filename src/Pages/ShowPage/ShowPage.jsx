@@ -17,6 +17,8 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
+import TravellerReview from "../../Components/TravellerReview";
+import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 
 function ShowPage({ citiesData }) {
   const { cityId } = useParams();
@@ -31,7 +33,7 @@ function ShowPage({ citiesData }) {
     {
       name: "John Doe",
       reviewText: "Breathtaking views and unforgettable experiences!",
-      reviewValue: 5,
+      reviewValue: 3,
     },
     {
       name: "Jane Smith",
@@ -41,7 +43,7 @@ function ShowPage({ citiesData }) {
     {
       name: "Alex Johnson",
       reviewText: "Immersive cultural experience. Loved every moment.",
-      reviewValue: 5,
+      reviewValue: 3,
     },
     {
       name: "Emily Davis",
@@ -52,7 +54,7 @@ function ShowPage({ citiesData }) {
     {
       name: "Michael Brown",
       reviewText: "Interesting but room for improvement. Worth exploring.",
-      reviewValue: 3,
+      reviewValue: 1,
     },
   ];
 
@@ -171,6 +173,11 @@ function ShowPage({ citiesData }) {
           <ShowPageMapView city={cityData} />
         </Grid>
 
+        <Grid item xs={12} md={10} sx={{margin:"auto"}}>
+        <ImagesCarousel/>
+        </Grid>
+
+
         <Grid item xs={12} md={6}>
           <Container maxWidth="xs">
             <CssBaseline />
@@ -276,27 +283,7 @@ function ShowPage({ citiesData }) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Card sx={{ minWidth: 200, width:'80%', margin:"auto", marginBottom:"1rem"}}>
-            <CardContent>
-              <Typography
-                variant="subtitle1"
-                color="text.secondary"
-              >
-                Yanan Liu
-              </Typography>
-              <Rating
-                  name="review"
-                  value={3}
-                />
-              <Typography variant="body2">
-                well meaning and kindly.
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Delete</Button>
-              <Button size="small">Edit</Button>
-            </CardActions>
-          </Card>
+        {travelReviews.map((traveller)=><TravellerReview name= {traveller.name} reviewText={traveller.reviewText} reviewValue={traveller.reviewValue}/>)}
         </Grid>
       </Grid>
     </Box>
