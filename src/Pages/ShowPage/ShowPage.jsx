@@ -13,7 +13,8 @@ import {
   CssBaseline,
   Rating,
   ImageList,
-  ImageListItem
+  ImageListItem,
+  InputLabel,
 } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
@@ -23,7 +24,8 @@ import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 import { v4 as uuidv4 } from "uuid";
 import imageList from "../../image";
 import ImageModal from "../../Components/ImageModal";
-import './ShowPage.scss'
+import ImageUploadForm from "../../Components/ImageUploadForm";
+import "./ShowPage.scss";
 
 function ShowPage({ citiesData }) {
   const { cityId } = useParams();
@@ -76,16 +78,29 @@ function ShowPage({ citiesData }) {
   const [reviewText, setReviewText] = useState("");
   const [reviewList, setReviewList] = useState(travelReviews);
   const [open, setOpen] = useState(false);
-  const [modalImage, setModalImage] = useState('')
+  const [modalImage, setModalImage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+  };
+
+  const handleUpload = () => {
+    // Add your logic for handling the file upload here
+    if (selectedFile) {
+      console.log("Uploading file:", selectedFile);
+      // Add your file upload logic (e.g., using FormData and sending it to the server)
+    }
+  };
 
   const handleOpen = (item) => {
-    setOpen(true)
-    setModalImage(item)
+    setOpen(true);
+    setModalImage(item);
   };
   const handleClose = () => {
     setOpen(false);
-    setModalImage('')
-  }
+    setModalImage("");
+  };
 
   const validCheck = () => {
     let valid = false;
@@ -173,7 +188,12 @@ function ShowPage({ citiesData }) {
 
   return (
     <Box sx={{ width: "90%", margin: "auto", marginTop: "3rem" }}>
-      <ImageModal open={open} handleClose={handleClose} handleOpen={handleOpen} image={modalImage}/>
+      <ImageModal
+        open={open}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+        image={modalImage}
+      />
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Card>
@@ -206,11 +226,15 @@ function ShowPage({ citiesData }) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <ImageList sx={{ height: 400, marginTop:"0"}} cols={3} rowHeight={164}>
+          <ImageList
+            sx={{ height: 400, marginTop: "0" }}
+            cols={3}
+            rowHeight={164}
+          >
             {imageList.map((item, index) => (
-              <ImageListItem key={item.img}>
-                <img className="image-list__img"
-                key = {index}
+              <ImageListItem key={index}>
+                <img
+                  className="image-list__img"
                   srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   src={`${item}?w=164&h=164&fit=crop&auto=format`}
                   alt={item}
@@ -223,6 +247,7 @@ function ShowPage({ citiesData }) {
         </Grid>
 
         <Grid item xs={12} md={6}>
+          {/* <ImageUploadForm/> */}
           <Container maxWidth="xs">
             <CssBaseline />
             <Box
@@ -287,7 +312,7 @@ function ShowPage({ citiesData }) {
               <Box
                 component="form"
                 onSubmit={handleReviewSubmit}
-                sx={{ mt: 1, mb: 5 }}
+                sx={{ mt: 1, mb: 1 }}
               >
                 <Rating
                   name="review"
@@ -311,10 +336,33 @@ function ShowPage({ citiesData }) {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 2, mb: 1 }}
                 >
                   Submit your review
                 </Button>
+              </Box>
+              <Box component={"form"}>
+                <InputLabel htmlFor="image-upload">Upload Your Travel Image or Post a Image link</InputLabel>
+                  <TextField
+                    type="file"
+                    id="image-upload"
+                    onChange={handleFileChange}
+                    inputProps={{
+                      accept: "image/*", // Specify the accepted file types (in this case, images)
+                    }}
+                    fullWidth
+                    sx={{mb: 1}}
+                  />
+                  <TextField type="text" fullWidth placeholder="url Link"/>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleUpload}
+                    sx={{ mt: 1, mb: 1 }}
+                    fullWidth
+                  >
+                    Upload Your Image
+                  </Button>
               </Box>
             </Box>
           </Container>
@@ -327,7 +375,7 @@ function ShowPage({ citiesData }) {
           />
         </Grid>
 
-        <Grid item xs={12} md={6} sx={{ margin: "auto" }}>
+        <Grid item xs={12} md={6} sx={{ margin: "0 auto" }}>
           {reviewList.map((traveller, index) => (
             <TravellerReview
               key={index}
