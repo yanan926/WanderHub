@@ -171,6 +171,7 @@ function ShowPage({ citiesData }) {
       console.log(response.data["choices"][0]["message"]["content"]);
       const result = response.data["choices"][0]["message"]["content"];
       setItineray(result);
+      setTravelDays(null)
     } catch (err) {
       console.log(err);
     } finally {
@@ -183,7 +184,9 @@ function ShowPage({ citiesData }) {
     setReviewList([
       { key: uuidv4(), name: "Yanan Liu", reviewText, reviewValue },
       ...reviewList,
-    ]);
+    ])
+    setReviewText("")
+    setReviewValue(0)
   };
 
   return (
@@ -354,6 +357,7 @@ function ShowPage({ citiesData }) {
                   fullWidth
                   type="text"
                   name="review"
+                  value={reviewText}
                   placeholder="Review Text"
                   multiline
                   rows={3}
