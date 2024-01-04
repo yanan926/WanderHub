@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,8 +23,12 @@ const navItems = [
   <NavLink to="/" className="navItems">
     Home
   </NavLink>,
-  "Register",
-  "Login",
+  <NavLink to="/register" className="navItems">
+    Register
+  </NavLink>,
+  <NavLink to="/login" className="navItems">
+    Login
+  </NavLink>,
 ];
 
 function Header(props) {
