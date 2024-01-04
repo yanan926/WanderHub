@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,15 +16,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import FlightIcon from "@mui/icons-material/Flight";
 import { NavLink } from "react-router-dom";
-import './Header.scss'
+import "./Header.scss";
 
 const drawerWidth = 240;
 
 const navItems = [
-  <NavLink
-    to="/"
-    className='navItems'
-  >
+  <NavLink to="/" className="navItems">
     Home
   </NavLink>,
   "Register",
@@ -33,7 +30,8 @@ const navItems = [
 
 function Header(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [login, setLogin] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -92,16 +90,26 @@ function Header(props) {
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item, index) => (
+            {login ? (
               <Button
-                key={index}
                 sx={{
-                  color: "#fff"
+                  color: "#fff",
                 }}
               >
-                {item}
+                Logout
               </Button>
-            ))}
+            ) : (
+              navItems.map((item, index) => (
+                <Button
+                  key={index}
+                  sx={{
+                    color: "#fff",
+                  }}
+                >
+                  {item}
+                </Button>
+              ))
+            )}
           </Box>
         </Toolbar>
       </AppBar>
