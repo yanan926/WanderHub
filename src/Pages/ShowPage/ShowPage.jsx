@@ -187,7 +187,7 @@ function ShowPage({ citiesData }) {
   };
 
   return (
-    <Box sx={{ width: "90%", margin: "auto", marginTop: "3rem" }}>
+    <Box sx={{ width: "90%", margin: "auto", marginTop: "5rem" }}>
       <ImageModal
         open={open}
         handleClose={handleClose}
@@ -219,6 +219,32 @@ function ShowPage({ citiesData }) {
         </Grid>
         <Grid item xs={12} md={6}>
           <ShowPageMapView city={cityData} />
+          <Typography component="h1" variant="h6" sx={{mt: 1,mb:1, textAlign:"center"}}>
+              Upload Your Travel Image
+              </Typography>
+              <Box component={"form"}>
+              <InputLabel htmlFor="file-upload">Select a File to Upload</InputLabel>
+                  <TextField
+                    type="file"
+                    id="image-upload"
+                    onChange={handleFileChange}
+                    inputProps={{
+                      accept: "image/*", // Specify the accepted file types (in this case, images)
+                    }}
+                    fullWidth
+                    sx={{mb: 1}}
+                  />
+                  <TextField type="text" fullWidth placeholder="Or post your image's url Link here"/>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleUpload}
+                    sx={{ mt: 1 }}
+                    fullWidth
+                  >
+                    Share Your Image
+                  </Button>
+              </Box>
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -247,12 +273,11 @@ function ShowPage({ citiesData }) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          {/* <ImageUploadForm/> */}
           <Container maxWidth="xs">
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -264,7 +289,7 @@ function ShowPage({ citiesData }) {
               <Box
                 component="form"
                 onSubmit={handleSubmit}
-                sx={{ mt: 1, mb: 5 }}
+                sx={{ mt: 3 }}
               >
                 <TextField
                   margin="normal"
@@ -299,7 +324,7 @@ function ShowPage({ citiesData }) {
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
+                marginTop: 2,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -340,29 +365,6 @@ function ShowPage({ citiesData }) {
                 >
                   Submit your review
                 </Button>
-              </Box>
-              <Box component={"form"}>
-                <InputLabel htmlFor="image-upload">Upload Your Travel Image or Post a Image link</InputLabel>
-                  <TextField
-                    type="file"
-                    id="image-upload"
-                    onChange={handleFileChange}
-                    inputProps={{
-                      accept: "image/*", // Specify the accepted file types (in this case, images)
-                    }}
-                    fullWidth
-                    sx={{mb: 1}}
-                  />
-                  <TextField type="text" fullWidth placeholder="url Link"/>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleUpload}
-                    sx={{ mt: 1, mb: 1 }}
-                    fullWidth
-                  >
-                    Upload Your Image
-                  </Button>
               </Box>
             </Box>
           </Container>
