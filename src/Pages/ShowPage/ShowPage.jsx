@@ -233,14 +233,16 @@ function ShowPage({ citiesData }) {
                     }}
                     fullWidth
                     sx={{mb: 1}}
+                    size="small"
                   />
-                  <TextField type="text" fullWidth placeholder="Or post your image's url Link here"/>
+                  <TextField type="text" fullWidth placeholder="Or post your image's url Link here" size="small"/>
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleUpload}
                     sx={{ mt: 1 }}
                     fullWidth
+                    size="small"
                   >
                     Share Your Image
                   </Button>
