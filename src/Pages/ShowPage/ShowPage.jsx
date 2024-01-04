@@ -219,10 +219,10 @@ function ShowPage({ citiesData }) {
         </Grid>
         <Grid item xs={12} md={6} maxWidth="xs">
           <ShowPageMapView city={cityData} />
-          <Typography component="h1" variant="h6" sx={{mt: 1,mb:1, textAlign:"center"}}>
+              <Box component={"form"} sx={{margin:"auto"}}>
+              <Typography component="h1" variant="h6" sx={{mt: 1,mb:1, textAlign:"center"}}>
               Upload Your Travel Image
               </Typography>
-              <Box component={"form"}>
               <InputLabel htmlFor="file-upload">Select a File to Upload</InputLabel>
                   <TextField
                     type="file"
