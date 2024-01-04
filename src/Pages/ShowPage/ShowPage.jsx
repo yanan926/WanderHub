@@ -22,6 +22,8 @@ import TravellerReview from "../../Components/TravellerReview";
 import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 import { v4 as uuidv4 } from "uuid";
 import imageList from "../../image";
+import ImageModal from "../../Components/ImageModal";
+import './ShowPage.scss'
 
 function ShowPage({ citiesData }) {
   const { cityId } = useParams();
@@ -73,6 +75,17 @@ function ShowPage({ citiesData }) {
   const [reviewValue, setReviewValue] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [reviewList, setReviewList] = useState(travelReviews);
+  const [open, setOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('')
+
+  const handleOpen = (item) => {
+    setOpen(true)
+    setModalImage(item)
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setModalImage('')
+  }
 
   const validCheck = () => {
     let valid = false;
@@ -160,6 +173,7 @@ function ShowPage({ citiesData }) {
 
   return (
     <Box sx={{ width: "90%", margin: "auto", marginTop: "3rem" }}>
+      <ImageModal open={open} handleClose={handleClose} handleOpen={handleOpen} image={modalImage}/>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Card>
@@ -193,13 +207,15 @@ function ShowPage({ citiesData }) {
 
         <Grid item xs={12} md={6}>
           <ImageList sx={{ height: 400, marginTop:"0"}} cols={3} rowHeight={164}>
-            {imageList.map((item) => (
+            {imageList.map((item, index) => (
               <ImageListItem key={item.img}>
-                <img
+                <img className="image-list__img"
+                key = {index}
                   srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   src={`${item}?w=164&h=164&fit=crop&auto=format`}
                   alt={item}
                   loading="lazy"
+                  onClick={() => handleOpen(item)}
                 />
               </ImageListItem>
             ))}
