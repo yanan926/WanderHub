@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import imageList from "./image";
 import Header from "./Components/Header/Header";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
+import LoginPage from "./Pages/LoginPage/LoginPage"
 
 function App() {
   let citiesData = cities.map((data, index) => {
@@ -35,6 +36,7 @@ function App() {
             element={<ShowPage citiesData={citiesData} />}
           />
           <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
         </Routes>
       </BrowserRouter>
     </>
