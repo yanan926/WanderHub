@@ -34,8 +34,8 @@ function App() {
             path="/city/:cityId"
             element={<ShowPage citiesData={citiesData} />}
           />
+          <Route path="/register" element={<RegisterPage/>}/>
         </Routes>
-        <Route path="/register" element={<RegisterPage/>}/>
       </BrowserRouter>
     </>
   );
