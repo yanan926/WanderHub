@@ -1,0 +1,8 @@
+.navItems {
+  text-decoration: none;
+  color: inherit;
+  &:focus {
+    text-decoration: underline;
+    text-underline-offset: 8px;
+  }
+}

@@ -217,7 +217,7 @@ function ShowPage({ citiesData }) {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} maxWidth="xs">
           <ShowPageMapView city={cityData} />
           <Typography component="h1" variant="h6" sx={{mt: 1,mb:1, textAlign:"center"}}>
               Upload Your Travel Image
@@ -284,7 +284,7 @@ function ShowPage({ citiesData }) {
               }}
             >
               <Typography component="h1" variant="h5">
-                Enter the days of your itinerary
+                Plan Your Itinerary
               </Typography>
               <Box
                 component="form"
