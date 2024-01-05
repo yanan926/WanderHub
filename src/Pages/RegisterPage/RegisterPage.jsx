@@ -42,13 +42,15 @@ export default function RegisterPage() {
     const registerUser = async () => {
       try {
         const response = await axios.post(
-          `${VIDEOS_API}/videos/`, {email, password}
+          `http://localhost:8080/register`, {username, email, password}
         );
         console.log(response)
       } catch (err) {
         console.log(err);
       }
     };
+    registerUser()
+
   };
 
   return (
