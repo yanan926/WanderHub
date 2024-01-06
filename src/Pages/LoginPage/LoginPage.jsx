@@ -29,15 +29,11 @@ function Copyright(props) {
 
 
 export default function LoginPage({handleLogin}) {
-  const [view, setView] = useState("login");
-    const [error, setError] = useState(false);
-
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username = data.get('username');
     const password = data.get('password')
-    setError(false);
         try {
             //send axios request to login user
             const response = await axios
@@ -51,7 +47,6 @@ export default function LoginPage({handleLogin}) {
             handleLogin(response.data.token);
         } catch (error) {
             console.log(error)
-            setError(true);
         }
   };
 
