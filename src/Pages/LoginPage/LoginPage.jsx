@@ -14,6 +14,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import Notification from '../../Components/Notification/Notification'
+import {useState} from 'react'
 
 function Copyright(props) {
   return (
@@ -31,6 +32,16 @@ function Copyright(props) {
 
 export default function LoginPage({handleLogin}) {
   const navigate = useNavigate();
+  const [username, setUserName] = useState("")
+  const [password, setPassword] = useState("")
+  const handleUserNameChange=(e)=>{
+    setUserName(e.target.value)
+  }
+
+  const handlePasswordChange=(e)=>{
+    setPassword(e.target.value)
+  }
+
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -55,11 +66,11 @@ export default function LoginPage({handleLogin}) {
   };
 
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 12,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -81,6 +92,8 @@ export default function LoginPage({handleLogin}) {
               name="username"
               autoComplete="username"
               autoFocus
+              value={username}
+              onChange={handleUserNameChange}
             />
             <TextField
               margin="normal"
@@ -91,6 +104,8 @@ export default function LoginPage({handleLogin}) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={handlePasswordChange}
             />
             <Button
               type="submit"
