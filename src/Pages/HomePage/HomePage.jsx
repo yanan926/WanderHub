@@ -15,7 +15,11 @@ import { Link} from "react-router-dom";
 function HomePage({citiesData}) {
   return (
     <Container maxWidth="lg">
-      <ClusterMap cities={citiesData} />
+      {citiesData.length > 0 ? (
+        <ClusterMap cities={citiesData} />
+      ) : (
+        <div>Loading map...</div>
+      )}
       <Grid container spacing={4} sx={{ marginTop: "1rem" }}>
         {citiesData.map((card) => (
           <Grid item key={card.properties.id} xs={12} sm={6} md={4}>
@@ -48,6 +52,7 @@ function HomePage({citiesData}) {
         ))}
       </Grid>
     </Container>
+    
   );
 }
 

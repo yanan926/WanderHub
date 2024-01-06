@@ -27,19 +27,32 @@ import ImageModal from "../../Components/ImageModal";
 import "./ShowPage.scss";
 
 
-function ShowPage({ citiesData }) {
+function ShowPage() {
 
   const navigate = useNavigate();
-  
   const { cityId } = useParams();
+  const [cityData, setCityData] = useState(null)
 
-
-
-  const cityData = citiesData.find((city) => city.properties.id === cityId);
-
-  if (!cityData) {
-    return <div>City not found!</div>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/${cityId}`);
+        const data = response.data
+        setCityData({
+          properties: {
+            id: data._id,
+            title: `${data.city}, ${data.state}`,
+            image: data.image.url,
+            imageList: data.imageList,
+          },
+          geometry: data.geometry
+      })
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, [])
 
   const travelReviews = [
     {
@@ -195,6 +208,7 @@ function ShowPage({ citiesData }) {
   };
 
   return (
+    !cityData? <div>loading</div> :
     <Box sx={{ width: "90%", margin: "auto", marginTop: "5rem" }}>
       <ImageModal
         open={open}
@@ -402,6 +416,7 @@ function ShowPage({ citiesData }) {
       </Grid>
     </Box>
   );
+
 }
 
 export default ShowPage;

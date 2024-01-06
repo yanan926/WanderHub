@@ -1,32 +1,41 @@
 import HomePage from "./Pages/HomePage/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ShowPage from "./Pages/ShowPage/ShowPage";
-import { useState } from "react";
-import cities from "./data";
-import { v4 as uuidv4 } from "uuid";
-import imageList from "./image";
+import { useState, useEffect } from "react";
 import Header from "./Components/Header/Header";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import { Navigate } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
-import Notification from './Components/Notification/Notification'
+import { ToastContainer } from "react-toastify";
+import axios from "axios";
 
 function App() {
-  let citiesData = cities.map((data, index) => {
-    const cityId = uuidv4();
-    return {
-      properties: {
-        id: "" + index,
-        title: `${data.city}, ${data.state}`,
-        image: `${imageList[Math.floor(Math.random() * imageList.length)]}.`,
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [data.longitude, data.latitude, 0],
-      },
+  const [citiesData, setCitiesData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/`);
+        console.log(response.data);
+        let destionationData = response.data.map((data) => {
+          return {
+            properties: {
+              id: data._id,
+              title: `${data.city}, ${data.state}`,
+              image: data.image.url,
+              imageList: data.imageList,
+            },
+            geometry: data.geometry
+          };
+        });
+        console.log(destionationData)
+        setCitiesData(destionationData);
+      } catch (err) {
+        console.log(err);
+      }
     };
-  });
+    fetchData();
+  }, []);
 
   const [token, setToken] = useState(sessionStorage.getItem("token"));
 
@@ -50,25 +59,33 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route
             path="/login"
-            element={<LoginPage handleLogin={handleLogin} isRedirect={!Boolean(token)}/>}
+            element={
+              <LoginPage
+                handleLogin={handleLogin}
+                isRedirect={!Boolean(token)}
+              />
+            }
           />
           <Route
             path="/city/:cityId"
             element={
               Boolean(token) ? (
                 <ShowPage
-                  citiesData={citiesData}
                   isLogin={Boolean(token)}
                   handleLogin={handleLogin}
                 />
-              ) : <>
-              {Notification.error("You need to log in to access this page.")}
-              <Navigate to="/login" replace />
-            </>
+              ) : (
+                <>
+                  {/* {Notification.error(
+                    "You need to log in to access the destination's page."
+                  )} */}
+                  <Navigate to="/login" replace />
+                </>
+              )
             }
           />
         </Routes>
-        <ToastContainer autoClose={1000}/>
+        <ToastContainer autoClose={1000} />
       </BrowserRouter>
     </>
   );
