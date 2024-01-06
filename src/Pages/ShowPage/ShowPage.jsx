@@ -110,7 +110,7 @@ function ShowPage() {
 
   const handleOpen = (item) => {
     setOpen(true);
-    setModalImage(item);
+    setModalImage(item.url);
   };
   const handleClose = () => {
     setOpen(false);
