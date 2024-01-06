@@ -42,6 +42,7 @@ function ShowPage() {
             image: data.image.url,
             imageList: data.imageList,
           },
+          description: data.description,
           geometry: data.geometry
       })
       } catch (err) {
@@ -229,9 +230,7 @@ function ShowPage() {
                 {cityData.properties.title}
               </Typography>
               <Typography>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quibusdam dolores vero perferendis laudantium, consequuntur
-                voluptatibus nulla architecto.
+                {cityData.description}
               </Typography>
             </CardContent>
           </Card>
