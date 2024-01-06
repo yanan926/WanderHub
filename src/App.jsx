@@ -25,6 +25,19 @@ function App() {
     };
   });
 
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
+
+  const handleLogin = (token) => {
+    sessionStorage.setItem("token", token);
+    setToken(token);
+  }
+
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    setToken(null);
+  }
+
   return (
     <>
       <BrowserRouter>
@@ -36,7 +49,7 @@ function App() {
             element={<ShowPage citiesData={citiesData} />}
           />
           <Route path="/register" element={<RegisterPage/>}/>
-          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/login" element={<LoginPage handleLogin={handleLogin}/>}/>
         </Routes>
       </BrowserRouter>
     </>

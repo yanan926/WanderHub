@@ -10,6 +10,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 function Copyright(props) {
@@ -27,24 +28,22 @@ function Copyright(props) {
 
 
 export default function RegisterPage() {
+
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username= data.get('username')
     const email= data.get('email')
     const password = data.get('password')
-    console.log({
-      username,
-      email,
-      password,
-    });
-
     const registerUser = async () => {
       try {
         const response = await axios.post(
           `http://localhost:8080/register`, {username, email, password}
         );
-        console.log(response)
+        if(response) {
+         console.log('success')
+        }
       } catch (err) {
         console.log(err);
       }
@@ -74,12 +73,12 @@ export default function RegisterPage() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="name"
+                  autoComplete="username"
                   name="username"
                   required
                   fullWidth
                   id="username"
-                  label="username"
+                  label="Username"
                   autoFocus
                 />
               </Grid>

@@ -11,7 +11,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import FlightIcon from "@mui/icons-material/Flight";
-
+import {useState} from "react"
+import axios from 'axios';
 
 function Copyright(props) {
   return (
@@ -27,14 +28,31 @@ function Copyright(props) {
 }
 
 
-export default function LoginPage() {
-  const handleSubmit = (event) => {
+export default function LoginPage({handleLogin}) {
+  const [view, setView] = useState("login");
+    const [error, setError] = useState(false);
+
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const username = data.get('username');
+    const password = data.get('password')
+    setError(false);
+        try {
+            //send axios request to login user
+            const response = await axios
+                .post("http://localhost:8080/login",
+                {
+                    username,
+                    password
+                }
+            );
+            console.log(response.data.token)
+            handleLogin(response.data.token);
+        } catch (error) {
+            console.log(error)
+            setError(true);
+        }
   };
 
   return (
@@ -59,10 +77,10 @@ export default function LoginPage() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
