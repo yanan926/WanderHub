@@ -39,7 +39,7 @@ function HomePage({citiesData}) {
                   {card.properties.title}
                 </Typography>
                 <Typography>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  {`${card.description}`}
                 </Typography>
               </CardContent>
               <CardActions>

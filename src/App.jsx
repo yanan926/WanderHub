@@ -24,6 +24,7 @@ function App() {
               image: data.image.url,
               imageList: data.imageList,
             },
+            description: data.description,
             geometry: data.geometry
           };
         });
