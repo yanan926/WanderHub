@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import FlightIcon from "@mui/icons-material/Flight";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Notification from '../../Components/Notification/Notification'
 
 function Copyright(props) {
   return (
@@ -45,9 +46,11 @@ export default function LoginPage({handleLogin}) {
                 }
             );
             handleLogin(response.data.token);
+            Notification.success("Sign Up Successfully!");
             navigate("/")
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            console.log(err)
+            Notification.error(err.response.data.error);
         }
   };
 

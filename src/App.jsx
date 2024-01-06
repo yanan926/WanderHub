@@ -9,6 +9,7 @@ import Header from "./Components/Header/Header";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import { Navigate } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   let citiesData = cities.map((data, index) => {
@@ -65,6 +66,7 @@ function App() {
             }
           />
         </Routes>
+        <ToastContainer autoClose={1000}/>
       </BrowserRouter>
     </>
   );

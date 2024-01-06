@@ -11,7 +11,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+import Notification from '../../Components/Notification/Notification'
+import {useState} from 'react'
 
 function Copyright(props) {
   return (
@@ -28,6 +29,20 @@ function Copyright(props) {
 
 
 export default function RegisterPage() {
+  const [username, setUserName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState(null)
+  const handleUserNameChange=(e)=>{
+    setUserName(e.target.value)
+  }
+
+  const handleEmailChange=(e)=>{
+    setEmail(e.target.value)
+  }
+
+  const handlePasswordChange=(e)=>{
+    setPassword(e.target.value)
+  }
 
   const navigate = useNavigate();
   const handleSubmit = (event) => {
@@ -41,11 +56,14 @@ export default function RegisterPage() {
         const response = await axios.post(
           `http://localhost:8080/register`, {username, email, password}
         );
-        if(response) {
-         console.log('success')
-        }
+        Notification.success("Sign Up Successfully!");
+        navigate("/login")
       } catch (err) {
         console.log(err);
+        Notification.error(err.response.data.details);
+        setEmail("")
+        setUserName("")
+        setPassword("")
       }
     };
     registerUser()
@@ -75,11 +93,13 @@ export default function RegisterPage() {
                 <TextField
                   autoComplete="username"
                   name="username"
+                  value={username}
                   required
                   fullWidth
                   id="username"
                   label="Username"
                   autoFocus
+                  onChange={handleUserNameChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -90,6 +110,8 @@ export default function RegisterPage() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={handleEmailChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -101,6 +123,8 @@ export default function RegisterPage() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={password}
+                  onChange={handlePasswordChange}
                 />
               </Grid>
             </Grid>
