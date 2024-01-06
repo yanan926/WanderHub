@@ -33,7 +33,7 @@ function ShowPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/${cityId}`);
+        const response = await axios.get(`http://localhost:8080/destinations/${cityId}/`);
         const data = response.data
         setCityData({
           properties: {

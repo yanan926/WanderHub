@@ -11,11 +11,12 @@ import axios from "axios";
 
 function App() {
   const [citiesData, setCitiesData] = useState([]);
+  const [userId, setUserId] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/`);
+        const response = await axios.get(`http://localhost:8080/destinations`);
         let destionationData = response.data.map((data) => {
           return {
             properties: {
@@ -25,10 +26,10 @@ function App() {
               imageList: data.imageList,
             },
             description: data.description,
-            geometry: data.geometry
+            geometry: data.geometry,
+            reviews: data.reviews
           };
         });
-        console.log(destionationData)
         setCitiesData(destionationData);
       } catch (err) {
         console.log(err);
@@ -54,7 +55,7 @@ function App() {
       <BrowserRouter>
         <Header isLogin={Boolean(token)} handleLogout={handleLogout} />
         <Routes>
-          <Route path="/" element={<HomePage citiesData={citiesData} />} />
+          <Route path="/" element={<HomePage citiesData={citiesData}/>} />
 
           <Route path="/register" element={<RegisterPage />} />
           <Route
@@ -63,6 +64,7 @@ function App() {
               <LoginPage
                 handleLogin={handleLogin}
                 isRedirect={!Boolean(token)}
+                setUserId={setUserId}
               />
             }
           />
@@ -71,16 +73,10 @@ function App() {
             element={
               Boolean(token) ? (
                 <ShowPage
-                  isLogin={Boolean(token)}
-                  handleLogin={handleLogin}
+                  // userId={userId}
                 />
               ) : (
-                <>
-                  {/* {Notification.error(
-                    "You need to log in to access the destination's page."
-                  )} */}
                   <Navigate to="/login" replace />
-                </>
               )
             }
           />
