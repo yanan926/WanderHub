@@ -10,6 +10,7 @@ import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import { Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
+import Notification from './Components/Notification/Notification'
 
 function App() {
   let citiesData = cities.map((data, index) => {
@@ -49,7 +50,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route
             path="/login"
-            element={<LoginPage handleLogin={handleLogin} />}
+            element={<LoginPage handleLogin={handleLogin} isRedirect={!Boolean(token)}/>}
           />
           <Route
             path="/city/:cityId"
@@ -60,9 +61,10 @@ function App() {
                   isLogin={Boolean(token)}
                   handleLogin={handleLogin}
                 />
-              ) : (
-                <Navigate to="/login" replace />
-              )
+              ) : <>
+              {Notification.error("You need to log in to access this page.")}
+              <Navigate to="/login" replace />
+            </>
             }
           />
         </Routes>
