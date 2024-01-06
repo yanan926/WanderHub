@@ -24,6 +24,7 @@ import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 import { v4 as uuidv4 } from "uuid";
 import ImageModal from "../../Components/ImageModal";
 import "./ShowPage.scss";
+import travelReviews from "../../data/reviews";'../../data/travelReviews'
 
 
 function ShowPage() {
@@ -51,40 +52,6 @@ function ShowPage() {
     };
     fetchData();
   }, [])
-
-  const travelReviews = [
-    {
-      key: uuidv4(),
-      name: "John Doe",
-      reviewText: "Breathtaking views and unforgettable experiences!",
-      reviewValue: 3,
-    },
-    {
-      key: uuidv4(),
-      name: "Jane Smith",
-      reviewText: "The destination exceeded my expectations. A must-visit!",
-      reviewValue: 4,
-    },
-    {
-      key: uuidv4(),
-      name: "Alex Johnson",
-      reviewText: "Immersive cultural experience. Loved every moment.",
-      reviewValue: 3,
-    },
-    {
-      key: uuidv4(),
-      name: "Emily Davis",
-      reviewText:
-        "Captivating landscapes and rich history. A 5-star destination.",
-      reviewValue: 5,
-    },
-    {
-      key: uuidv4(),
-      name: "Michael Brown",
-      reviewText: "Interesting but room for improvement. Worth exploring.",
-      reviewValue: 1,
-    },
-  ];
 
   const [travelDays, setTravelDays] = useState(null);
   const [error, setError] = useState("");
