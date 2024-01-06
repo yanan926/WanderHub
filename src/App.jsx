@@ -7,7 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import imageList from "./image";
 import Header from "./Components/Header/Header";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
-import LoginPage from "./Pages/LoginPage/LoginPage"
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import { Navigate } from "react-router-dom";
 
 function App() {
   let citiesData = cities.map((data, index) => {
@@ -26,29 +27,43 @@ function App() {
   });
 
   const [token, setToken] = useState(sessionStorage.getItem("token"));
+
   const handleLogin = (token) => {
     sessionStorage.setItem("token", token);
     setToken(token);
-  }
-
+  };
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     setToken(null);
-  }
+  };
 
   return (
     <>
       <BrowserRouter>
-      <Header isLogin={Boolean(token)} handleLogout={handleLogout}/>
+        <Header isLogin={Boolean(token)} handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<HomePage citiesData={citiesData} />} />
+
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/login"
+            element={<LoginPage handleLogin={handleLogin} />}
+          />
           <Route
             path="/city/:cityId"
-            element={<ShowPage citiesData={citiesData} isLogin={Boolean(token)}/>}
+            element={
+              Boolean(token) ? (
+                <ShowPage
+                  citiesData={citiesData}
+                  isLogin={Boolean(token)}
+                  handleLogin={handleLogin}
+                />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
           />
-          <Route path="/register" element={<RegisterPage/>}/>
-          <Route path="/login" element={<LoginPage handleLogin={handleLogin}/>}/>
         </Routes>
       </BrowserRouter>
     </>

@@ -16,7 +16,7 @@ import {
   ImageListItem,
   InputLabel,
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 import TravellerReview from "../../Components/TravellerReview";
@@ -24,15 +24,13 @@ import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 import { v4 as uuidv4 } from "uuid";
 import imageList from "../../image";
 import ImageModal from "../../Components/ImageModal";
-import ImageUploadForm from "../../Components/ImageUploadForm";
 import "./ShowPage.scss";
-import { useNavigate } from "react-router-dom";
 
-function ShowPage({ citiesData, isLogin }) {
+
+function ShowPage({ citiesData }) {
+
   const navigate = useNavigate();
-  if(!isLogin) {
-    navigate("/")
-  }
+  
   const { cityId } = useParams();
 
 
