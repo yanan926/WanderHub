@@ -26,7 +26,6 @@ function App() {
   });
 
   const [token, setToken] = useState(sessionStorage.getItem("token"));
-
   const handleLogin = (token) => {
     sessionStorage.setItem("token", token);
     setToken(token);
@@ -41,12 +40,12 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <Header />
+      <Header isLogin={Boolean(token)} handleLogout={handleLogout}/>
         <Routes>
           <Route path="/" element={<HomePage citiesData={citiesData} />} />
           <Route
             path="/city/:cityId"
-            element={<ShowPage citiesData={citiesData} />}
+            element={<ShowPage citiesData={citiesData} isLogin={Boolean(token)}/>}
           />
           <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/login" element={<LoginPage handleLogin={handleLogin}/>}/>

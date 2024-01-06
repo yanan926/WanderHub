@@ -26,9 +26,16 @@ import imageList from "../../image";
 import ImageModal from "../../Components/ImageModal";
 import ImageUploadForm from "../../Components/ImageUploadForm";
 import "./ShowPage.scss";
+import { useNavigate } from "react-router-dom";
 
-function ShowPage({ citiesData }) {
+function ShowPage({ citiesData, isLogin }) {
+  const navigate = useNavigate();
+  if(!isLogin) {
+    navigate("/")
+  }
   const { cityId } = useParams();
+
+
 
   const cityData = citiesData.find((city) => city.properties.id === cityId);
 

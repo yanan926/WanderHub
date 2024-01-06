@@ -31,10 +31,10 @@ const navItems = [
   </NavLink>,
 ];
 
-function Header(props) {
+function Header({isLogin, handleLogout, ...props}) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [login, setLogin] = useState(false);
+
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -93,11 +93,12 @@ function Header(props) {
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {login ? (
+            {isLogin ? (
               <Button
                 sx={{
                   color: "#fff",
                 }}
+                onClick={handleLogout}
               >
                 Logout
               </Button>

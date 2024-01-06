@@ -11,8 +11,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import FlightIcon from "@mui/icons-material/Flight";
-import {useState} from "react"
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -29,6 +29,7 @@ function Copyright(props) {
 
 
 export default function LoginPage({handleLogin}) {
+  const navigate = useNavigate();
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,8 +44,8 @@ export default function LoginPage({handleLogin}) {
                     password
                 }
             );
-            console.log(response.data.token)
             handleLogin(response.data.token);
+            navigate("/")
         } catch (error) {
             console.log(error)
         }
