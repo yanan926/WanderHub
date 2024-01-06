@@ -22,14 +22,11 @@ import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 import TravellerReview from "../../Components/TravellerReview";
 import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 import { v4 as uuidv4 } from "uuid";
-import imageList from "../../image";
 import ImageModal from "../../Components/ImageModal";
 import "./ShowPage.scss";
 
 
 function ShowPage() {
-
-  const navigate = useNavigate();
   const { cityId } = useParams();
   const [cityData, setCityData] = useState(null)
 
@@ -282,13 +279,13 @@ function ShowPage() {
             cols={3}
             rowHeight={164}
           >
-            {imageList.map((item, index) => (
+            {cityData.properties.imageList.map((item, index) => (
               <ImageListItem key={index}>
                 <img
                   className="image-list__img"
-                  srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                  alt={item}
+                  srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+                  alt={'travel image'}
                   loading="lazy"
                   onClick={() => handleOpen(item)}
                 />
