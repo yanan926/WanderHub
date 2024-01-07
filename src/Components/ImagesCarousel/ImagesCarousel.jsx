@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import {
-    Paper,
-    Button,
-    Typography,
+    Paper
 } from '@mui/material'
 
 import "./ImagesCarousel.scss"
@@ -24,7 +22,6 @@ const ImagesCarousel = () => {
             </Carousel>
     )
 }
-
 
 
 function Project({item}) {

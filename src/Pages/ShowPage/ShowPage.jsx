@@ -36,7 +36,7 @@ function ShowPage() {
   const [reviewList, setReviewList] = useState(travelReviews);
   const [open, setOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+ 
 
   const fetchData = async () => {
     try {
@@ -57,7 +57,6 @@ function ShowPage() {
         geometry: data.geometry,
       });
         const reviewData = data.reviews.map((data)=>{return { username: data.author.username, reviewText: data.reviewText, reviewValue: data.reviewValue,}})
-        console.log(reviewData)
         setReviewList([...reviewData,...travelReviews])
     } catch (err) {
       console.log(err);
@@ -129,7 +128,7 @@ function ShowPage() {
         </Grid>
         <Grid item xs={12} md={6} maxWidth="xs">
           <ShowPageMapView city={cityData} />
-            <UploadForm/>
+            <UploadForm cityId={cityId} fetchData={fetchData}/>
         </Grid>
 
         <Grid item xs={12} md={6}>

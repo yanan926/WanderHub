@@ -77,7 +77,6 @@ function App() {
             element={
               Boolean(token) ? (
                 <ShowPage
-                  // userId={userId}
                 />
               ) : (
                   <Navigate to="/login" replace />
