@@ -43,7 +43,7 @@ function ShowPage() {
       const response = await axios.get(
         `http://localhost:8080/destinations/${cityId}/`
       );
-      console.log(response.data)
+      // console.log(response.data)
       const data = response.data
       setCityData({
         properties: {
