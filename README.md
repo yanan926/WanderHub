@@ -109,6 +109,10 @@ Planning a trip involves multiple steps, including researching destinations and 
      npm i
      nodemon index.js
      ```
+### Next steps
+- Finish the comments delete and edit function
+- Save user's populated travel plans for futrue use
+
 
 
 
