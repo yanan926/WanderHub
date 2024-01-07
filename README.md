@@ -63,36 +63,53 @@ Planning a trip involves multiple steps, including researching destinations and 
   
 
 ### Installation on developer and production environments
-Frontend (Vite)
-Install Dependencies:
 
-Navigate to the frontend directory (/frontend) and run:
-- npm i
-- Run Development Server:
+### Client Side Setup
 
-- Start the Vite development server with:
-- npm run dev
-- Backend (Express, MongoDB)
-- Clone the Backend Repository
+1. **Insert API Key:**
+   - For the client side, users need to insert their own `.env` file with the ChatGPT API key.
 
-Clone the backend repository from WanderHubServer.
-Install Backend Dependencies:
+### Frontend (Vite)
 
-Navigate to the backend directory (/WanderHubServer) and run:
-npm i
-Set Up MongoDB:
+1. **Install Dependencies:**
+   - Navigate to the frontend directory (`/frontend`) and run:
+     ```bash
+     npm i
+     ```
 
-The database is deployed on MongoDB Atlas, ready for use. If needed, install MongoDB manually.
+2. **Run Development Server:**
+   - Start the Vite development server with:
+     ```bash
+     npm run dev
+     ```
 
-Seed the Database:
+### Backend (Express, MongoDB)
 
-Run the seeds file to insert data into the local database:
-node seeds/index.js
+1. **Clone the Backend Repository:**
+   - Clone the backend repository from [WanderHubServer](https://github.com/yanan926/WanderHubServer).
 
-Start the Backend Server:
+2. **Install Backend Dependencies:**
+   - Navigate to the backend directory (`/WanderHubServer`) and run:
+     ```bash
+     npm i
+     ```
 
-Start the backend server with:
-npm i
-nodemon index.js
+3. **Set Up MongoDB:**
+   - The database is deployed on MongoDB Atlas, ready for use. If needed, install MongoDB manually.
+
+4. **Seed the Database:**
+   - Run the seeds file to insert data into the database:
+     ```bash
+     node seeds/index.js
+     ```
+
+5. **Start the Backend Server:**
+   - Start the backend server with:
+     ```bash
+     npm i
+     nodemon index.js
+     ```
+
+
 
 
