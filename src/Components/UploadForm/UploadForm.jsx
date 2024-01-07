@@ -13,6 +13,7 @@ const UploadForm = ({ cityId, fetchData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [urlLink, setUrlLink] = useState("");
   const [error, setError] = useState("");
+ 
 
   const validCheck = () => {
     if (selectedFile && urlLink) {
