@@ -90,7 +90,7 @@ const UploadForm = ({ cityId, fetchData }) => {
         <TextField
           type="text"
           id="image-upload"
-          value={selectedFile ? selectedFile.name : ""}
+          value={selectedFile ? selectedFile.name : "No File is Selected"}
           fullWidth
           size="small"
           error={Boolean(error)}
