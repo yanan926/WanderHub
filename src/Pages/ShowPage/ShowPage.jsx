@@ -21,10 +21,10 @@ import axios from "axios";
 import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 import TravellerReview from "../../Components/TravellerReview";
 import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
-import { v4 as uuidv4 } from "uuid";
 import ImageModal from "../../Components/ImageModal";
 import "./ShowPage.scss";
 import travelReviews from "../../data/reviews";
+import UploadForm from "../../Components/UploadForm/UploadForm";
 ("../../data/travelReviews");
 
 function ShowPage() {
@@ -71,17 +71,6 @@ function ShowPage() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  const handleUpload = () => {
-    if (selectedFile) {
-      console.log("Uploading file:", selectedFile);
-    }
-  };
 
   const handleOpen = (item) => {
     setOpen(true);
@@ -218,46 +207,7 @@ function ShowPage() {
         </Grid>
         <Grid item xs={12} md={6} maxWidth="xs">
           <ShowPageMapView city={cityData} />
-          <Box component={"form"} sx={{ margin: "auto" }}>
-            <Typography
-              component="h1"
-              variant="h6"
-              sx={{ mt: 1, mb: 1, textAlign: "center" }}
-            >
-              Upload Your Travel Image
-            </Typography>
-            <InputLabel htmlFor="file-upload">
-              Select a File to Upload
-            </InputLabel>
-            <TextField
-              type="file"
-              id="image-upload"
-              onChange={handleFileChange}
-              inputProps={{
-                accept: "image/*", // Specify the accepted file types (in this case, images)
-              }}
-              fullWidth
-              sx={{ mb: 1 }}
-              size="small"
-            />
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <TextField
-                type="text"
-                placeholder="Or post your image's url Link here"
-                size="small"
-                sx={{ width: "70%", mr: 3 }}
-              />
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleUpload}
-                size="small"
-                sx={{ width: "40%", p: 1 }}
-              >
-                Share Your Image
-              </Button>
-            </Box>
-          </Box>
+            <UploadForm/>
         </Grid>
 
         <Grid item xs={12} md={6}>
