@@ -3,9 +3,20 @@ import Carousel from 'react-material-ui-carousel';
 import {
     Paper
 } from '@mui/material'
-
 import "./ImagesCarousel.scss"
-import { DefaultSettingsT} from '../Settings/Settings';
+
+
+const DefaultSettingsT = {
+    autoPlay: true,
+    animation: "fade",
+    indicators: true,
+    duration: 500,
+    navButtonsAlwaysVisible: true,
+    navButtonsAlwaysInvisible: false,
+    cycleNavigation: true,
+    fullHeightHover: true,
+    swipe: true
+}
 
 const ImagesCarousel = ({imageList}) => {
 
