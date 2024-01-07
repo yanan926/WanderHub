@@ -48,6 +48,7 @@ Planning a trip involves multiple steps, including researching destinations and 
 ### Sitemap
 
 - Home page
+- <img width="1400" alt="Screenshot 2024-01-07 at 1 40 53 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/e91393bb-9b0d-4a24-b027-c16440f39e1b">
 - Discover Destinations (Visual Inspiration Gallery)
 - Create Itinerary
 - Post personal comment to desinations
