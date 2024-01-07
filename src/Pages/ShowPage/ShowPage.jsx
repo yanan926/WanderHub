@@ -63,6 +63,7 @@ function ShowPage() {
         if (cityData.reviews) {
           setReviewList((preList) => [{ ...cityData.reviews, ...preList }]);
         }
+        console.log(cityId)
       } catch (err) {
         console.log(err);
       }
@@ -109,7 +110,6 @@ function ShowPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(travelDays);
     if (!validCheck()) {
       return;
     }
@@ -168,6 +168,19 @@ function ShowPage() {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
+    const postReview = async () => {
+      try {
+        const response = await axios.post(
+          `http://localhost:8080/destinations/reviews/${cityId}`,
+          {reviewText, reviewValue, userId}
+        );
+        const data = response.data;
+        console.log(data)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    postReview();
     setReviewList([
       { key: uuidv4(), name: "Yanan Liu", reviewText, reviewValue },
       ...reviewList,
