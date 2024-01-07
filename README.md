@@ -47,18 +47,18 @@ Planning a trip involves multiple steps, including researching destinations and 
 
 ### Sitemap
 
-- Home page
+### Home page
 <img width="1386" alt="Screenshot 2024-01-07 at 1 41 41 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/ab7012da-7566-4fc4-8b0e-50c4036e366f">
 <img width="1404" alt="Screenshot 2024-01-07 at 1 42 17 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/95fe300b-c463-40a0-a0b3-d0d97b4df2e8">
 
-- Discover Destinations (Visual Inspiration Gallery)
+### Discover Destinations (Visual Inspiration Gallery)
 <img width="1354" alt="Screenshot 2024-01-07 at 1 43 19 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/2c0c9692-b501-484d-8bf4-0e055c67f8c6">
 
 
-- Create Itinerary
+### Create Itinerary
 <img width="700" alt="Screenshot 2024-01-07 at 1 45 06 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/3c7e6396-f1f9-4090-889e-990de93cc9b8">
 
-- Post personal comment to desinations
+### Post personal comment to desinations
 <img width="696" alt="Screenshot 2024-01-07 at 1 44 08 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/94aaba8d-64a1-4086-95e5-73cba599c021">
   
 
