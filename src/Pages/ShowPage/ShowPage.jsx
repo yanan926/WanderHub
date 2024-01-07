@@ -132,7 +132,7 @@ function ShowPage() {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <ImagesCarousel />
+          <ImagesCarousel imageList={cityData.properties.imageList}/>
         </Grid>
 
         <Grid item xs={12} md={6}>
