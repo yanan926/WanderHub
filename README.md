@@ -60,7 +60,10 @@ Planning a trip involves multiple steps, including researching destinations and 
 
 ### Post personal comment to desinations
 <img width="696" alt="Screenshot 2024-01-07 at 1 44 08 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/94aaba8d-64a1-4086-95e5-73cba599c021">
-  
+
+### Post personal images to share with other users
+
+<img width="669" alt="Screenshot 2024-01-07 at 2 15 51 PM" src="https://github.com/yanan926/WanderHub/assets/39099003/f24558d4-947c-438b-b993-5aa6e8c9d951">
 
 ### Installation on developer and production environments
 
