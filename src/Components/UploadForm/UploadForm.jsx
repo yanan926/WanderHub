@@ -86,7 +86,7 @@ const UploadForm = ({ cityId, fetchData }) => {
         Upload Your Travel Image
       </Typography>
       <InputLabel htmlFor="file-upload">Select a File to Upload</InputLabel>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{display:'flex', alignItems:'center', mb:2}}>
         <TextField
           type="text"
           id="image-upload"
@@ -109,8 +109,8 @@ const UploadForm = ({ cityId, fetchData }) => {
           onChange={handleFileChange}
           accept="image/*"
           style={{ display: "none" }}
-        />
-      </div>
+        ></input>
+      </Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <TextField
           type="text"
