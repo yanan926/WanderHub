@@ -56,7 +56,8 @@ export default function LoginPage({handleLogin}) {
                     password
                 }
             );
-            handleLogin(response.data.token);
+            console.log(response.data)
+            handleLogin(response.data.token, response.data.userId);
             Notification.success("Sign In Successfully!");
             navigate("/")
         } catch (err) {

@@ -24,35 +24,13 @@ import ImagesCarousel from "../../Components/ImagesCarousel/ImagesCarousel";
 import { v4 as uuidv4 } from "uuid";
 import ImageModal from "../../Components/ImageModal";
 import "./ShowPage.scss";
-import travelReviews from "../../data/reviews";'../../data/travelReviews'
-
+import travelReviews from "../../data/reviews";
+("../../data/travelReviews");
 
 function ShowPage() {
   const { cityId } = useParams();
-  const [cityData, setCityData] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/destinations/${cityId}/`);
-        const data = response.data
-        setCityData({
-          properties: {
-            id: data._id,
-            title: `${data.city}, ${data.state}`,
-            image: data.image.url,
-            imageList: data.imageList,
-          },
-          description: data.description,
-          geometry: data.geometry
-      })
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-  }, [])
-
+  const [cityData, setCityData] = useState(null);
+  const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
   const [travelDays, setTravelDays] = useState(null);
   const [error, setError] = useState("");
   const [itinerary, setItineray] = useState("");
@@ -63,6 +41,35 @@ function ShowPage() {
   const [open, setOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/destinations/${cityId}/`
+        );
+        const data = response.data;
+        setCityData({
+          properties: {
+            id: data._id,
+            title: `${data.city}, ${data.state}`,
+            image: data.image.url,
+            imageList: data.imageList,
+          },
+          description: data.description,
+          geometry: data.geometry,
+          reviews: data.reviews,
+        });
+        if (cityData.reviews) {
+          setReviewList((preList) => [{ ...cityData.reviews, ...preList }]);
+        }
+        console.log(userId)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -154,7 +161,7 @@ function ShowPage() {
       console.log(response.data["choices"][0]["message"]["content"]);
       const result = response.data["choices"][0]["message"]["content"];
       setItineray(result);
-      setTravelDays(null)
+      setTravelDays(null);
     } catch (err) {
       console.log(err);
     } finally {
@@ -167,13 +174,14 @@ function ShowPage() {
     setReviewList([
       { key: uuidv4(), name: "Yanan Liu", reviewText, reviewValue },
       ...reviewList,
-    ])
-    setReviewText("")
-    setReviewValue(0)
+    ]);
+    setReviewText("");
+    setReviewValue(0);
   };
 
-  return (
-    !cityData? <div>loading</div> :
+  return !cityData ? (
+    <div>loading</div>
+  ) : (
     <Box sx={{ width: "90%", margin: "auto", marginTop: "5rem" }}>
       <ImageModal
         open={open}
@@ -196,43 +204,52 @@ function ShowPage() {
               <Typography gutterBottom variant="h5" component="h2">
                 {cityData.properties.title}
               </Typography>
-              <Typography>
-                {cityData.description}
-              </Typography>
+              <Typography>{cityData.description}</Typography>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={6} maxWidth="xs">
           <ShowPageMapView city={cityData} />
-              <Box component={"form"} sx={{margin:"auto"}}>
-              <Typography component="h1" variant="h6" sx={{mt: 1,mb:1, textAlign:"center"}}>
+          <Box component={"form"} sx={{ margin: "auto" }}>
+            <Typography
+              component="h1"
+              variant="h6"
+              sx={{ mt: 1, mb: 1, textAlign: "center" }}
+            >
               Upload Your Travel Image
-              </Typography>
-              <InputLabel htmlFor="file-upload">Select a File to Upload</InputLabel>
-                  <TextField
-                    type="file"
-                    id="image-upload"
-                    onChange={handleFileChange}
-                    inputProps={{
-                      accept: "image/*", // Specify the accepted file types (in this case, images)
-                    }}
-                    fullWidth
-                    sx={{mb: 1}}
-                    size="small"
-                  />
-                  <Box sx={{display:"flex", alignItems:'center'}}>
-                  <TextField type="text" placeholder="Or post your image's url Link here" size="small" sx={{width:'70%', mr:3}}/>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleUpload}
-                    size="small"
-                    sx={{width:'40%', p:1}}
-                  >
-                    Share Your Image
-                  </Button>
-                  </Box>                
-              </Box>
+            </Typography>
+            <InputLabel htmlFor="file-upload">
+              Select a File to Upload
+            </InputLabel>
+            <TextField
+              type="file"
+              id="image-upload"
+              onChange={handleFileChange}
+              inputProps={{
+                accept: "image/*", // Specify the accepted file types (in this case, images)
+              }}
+              fullWidth
+              sx={{ mb: 1 }}
+              size="small"
+            />
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <TextField
+                type="text"
+                placeholder="Or post your image's url Link here"
+                size="small"
+                sx={{ width: "70%", mr: 3 }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleUpload}
+                size="small"
+                sx={{ width: "40%", p: 1 }}
+              >
+                Share Your Image
+              </Button>
+            </Box>
+          </Box>
         </Grid>
 
         <Grid item xs={12} md={6}>
@@ -251,7 +268,7 @@ function ShowPage() {
                   className="image-list__img"
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                  alt={'travel image'}
+                  alt={"travel image"}
                   loading="lazy"
                   onClick={() => handleOpen(item)}
                 />
@@ -274,11 +291,7 @@ function ShowPage() {
               <Typography component="h1" variant="h5">
                 Plan Your Itinerary
               </Typography>
-              <Box
-                component="form"
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
-              >
+              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <TextField
                   margin="normal"
                   fullWidth
@@ -379,7 +392,6 @@ function ShowPage() {
       </Grid>
     </Box>
   );
-
 }
 
 export default ShowPage;

@@ -11,7 +11,8 @@ import axios from "axios";
 
 function App() {
   const [citiesData, setCitiesData] = useState([]);
-  const [userId, setUserId] = useState("")
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
+  const [userId, setUserId] = useState(sessionStorage.getItem("userId"))
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,15 +39,18 @@ function App() {
     fetchData();
   }, []);
 
-  const [token, setToken] = useState(sessionStorage.getItem("token"));
 
-  const handleLogin = (token) => {
+
+  const handleLogin = (token, userId) => {
     sessionStorage.setItem("token", token);
+    sessionStorage.setItem("userId", userId);
     setToken(token);
+    setUserId(userId)
   };
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userId")
     setToken(null);
   };
 
