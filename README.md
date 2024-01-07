@@ -95,7 +95,7 @@ Planning a trip involves multiple steps, including researching destinations and 
      ```
 
 3. **Set Up MongoDB:**
-   - The database is deployed on MongoDB Atlas, ready for use. If needed, install MongoDB manually.
+   - The database is deployed on MongoDB Atlas. It should be ready for use. However, if the cloud database doesn't work, install MongoDB manually.
 
 4. **Seed the Database:**
    - Run the seeds file to insert data into the database:
