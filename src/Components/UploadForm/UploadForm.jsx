@@ -26,7 +26,7 @@ const UploadForm = ({ cityId, fetchData }) => {
         { url: `${url}` }
       );
       const data = response.data;
-      console.log(data);
+
       fetchData();
     } catch (err) {
       console.log(err);
