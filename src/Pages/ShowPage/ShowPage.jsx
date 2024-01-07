@@ -63,7 +63,6 @@ function ShowPage() {
         if (cityData.reviews) {
           setReviewList((preList) => [{ ...cityData.reviews, ...preList }]);
         }
-        console.log(userId)
       } catch (err) {
         console.log(err);
       }
@@ -76,10 +75,8 @@ function ShowPage() {
   };
 
   const handleUpload = () => {
-    // Add your logic for handling the file upload here
     if (selectedFile) {
       console.log("Uploading file:", selectedFile);
-      // Add your file upload logic (e.g., using FormData and sending it to the server)
     }
   };
 
