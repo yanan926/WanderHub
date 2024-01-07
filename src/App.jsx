@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import HomePage from "./Pages/HomePage/HomePage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ShowPage from "./Pages/ShowPage/ShowPage";
+import { useState, useEffect } from "react";
+import Header from "./Components/Header/Header";
+import RegisterPage from "./Pages/RegisterPage/RegisterPage";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import { Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [citiesData, setCitiesData] = useState([]);
+  const [token, setToken] = useState(sessionStorage.getItem("token"));
+  const [userId, setUserId] = useState(sessionStorage.getItem("userId"))
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/destinations`);
+        let destionationData = response.data.map((data) => {
+          return {
+            properties: {
+              id: data._id,
+              title: `${data.city}, ${data.state}`,
+              image: data.image.url,
+              imageList: data.imageList,
+            },
+            description: data.description,
+            geometry: data.geometry,
+            reviews: data.reviews
+          };
+        });
+        setCitiesData(destionationData);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+
+  const handleLogin = (token, userId) => {
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("userId", userId);
+    setToken(token);
+    setUserId(userId)
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userId")
+    setToken(null);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <BrowserRouter>
+        <Header isLogin={Boolean(token)} handleLogout={handleLogout} />
+        <Routes>
+          <Route path="/" element={<HomePage citiesData={citiesData}/>} />
+
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/login"
+            element={
+              <LoginPage
+                handleLogin={handleLogin}
+                isRedirect={!Boolean(token)}
+                setUserId={setUserId}
+              />
+            }
+          />
+          <Route
+            path="/city/:cityId"
+            element={
+              Boolean(token) ? (
+                <ShowPage
+                />
+              ) : (
+                  <Navigate to="/login" replace />
+              )
+            }
+          />
+        </Routes>
+        <ToastContainer autoClose={1000} />
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
