@@ -2,48 +2,63 @@ import { useState } from "react";
 import axios from "axios";
 import { Box, Typography, TextField, Button, InputLabel } from "@mui/material";
 
-const UploadForm = ({cityId, fetchData}) => {
+const UploadForm = ({ cityId, fetchData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [urlLink, setUrlLink] = useState("");
   const [error, setError] = useState("");
 
   const validCheck = () => {
-    if (selectedFile && (urlLink != "")) {
+    if (selectedFile && urlLink) {
       setError("Please select only one option: file or URL.");
-      return false
-    } 
+      return false;
+    }
     return true;
   };
 
   const handleBlur = () => {
-    // Perform validation when the user stops typing
     validCheck();
   };
 
-  const handleUpload = (e) => {
+  const postUrl = async (url) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/destinations/${cityId}`,
+        { url: `${url}` }
+      );
+      const data = response.data;
+      console.log(data);
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUpload = async (e) => {
     e.preventDefault();
     if (!validCheck()) {
       return;
     }
     if (selectedFile) {
-      console.log("Uploading file:", selectedFile);
-      // Add your file upload logic here
-    } else if (urlLink) {
-    const postUrl = async () => {
       try {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        // Upload file to Cloudinary
         const response = await axios.post(
-          `http://localhost:8080/destinations/${cityId}`,
-          {url: `${urlLink}`}
+          "http://localhost:8080/upload",
+          formData
         );
-        const data = response.data;
-        console.log(data)
-        fetchData()
+        console.log("Image uploaded to Cloudinary:", response.data.imageUrl);
+        postUrl(response.data.imageUrl)
+        setSelectedFile(null)
       } catch (err) {
-        console.log(err);
+        console.error("Error uploading image to Cloudinary:", err);
       }
-    };
-    postUrl()
-    setUrlLink("")
+    } else if (urlLink) {
+      console.log(
+        urlLink
+      )
+      postUrl(`${urlLink}`);
+      setUrlLink("");
     } else {
       console.log("Please select a file or provide a URL.");
     }
@@ -63,7 +78,7 @@ const UploadForm = ({cityId, fetchData}) => {
 
   return (
     <Box component={"form"} sx={{ margin: "auto" }}>
-       <Typography
+      <Typography
         component="h1"
         variant="h6"
         sx={{ mt: 1, mb: 1, textAlign: "center" }}
@@ -84,10 +99,7 @@ const UploadForm = ({cityId, fetchData}) => {
           disabled
         />
         <label htmlFor="file-upload" style={{ marginLeft: "8px" }}>
-          <Button
-            variant="outlined"
-            component="span"
-          >
+          <Button variant="outlined" component="span">
             Browse
           </Button>
         </label>
