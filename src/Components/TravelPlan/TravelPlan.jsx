@@ -15,6 +15,8 @@ const TravelPlan = ({ cityData, setItineray }) => {
   const [travelDays, setTravelDays] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  //personal chatgpt api
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   const validCheck = () => {
     let valid = false;
@@ -70,7 +72,7 @@ const TravelPlan = ({ cityData, setItineray }) => {
     let config = {
       headers: {
         Authorization:
-          "Bearer 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",
+          `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
     };

@@ -1,11 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
-import { Box, Typography, TextField, Button, InputLabel } from "@mui/material";
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  InputLabel,
+  CircularProgress,
+} from "@mui/material";
 
 const UploadForm = ({ cityId, fetchData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [urlLink, setUrlLink] = useState("");
   const [error, setError] = useState("");
+ 
 
   const validCheck = () => {
     if (selectedFile && urlLink) {
@@ -14,6 +22,8 @@ const UploadForm = ({ cityId, fetchData }) => {
     }
     return true;
   };
+
+  const [loading, setLoading] = useState(false);
 
   const handleBlur = () => {
     validCheck();
@@ -30,11 +40,14 @@ const UploadForm = ({ cityId, fetchData }) => {
       fetchData();
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false); // Set loading to false after API call completes
     }
   };
 
   const handleUpload = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!validCheck()) {
       return;
     }
@@ -48,15 +61,13 @@ const UploadForm = ({ cityId, fetchData }) => {
           formData
         );
         console.log("Image uploaded to Cloudinary:", response.data.imageUrl);
-        postUrl(response.data.imageUrl)
-        setSelectedFile(null)
+        postUrl(response.data.imageUrl);
+        setSelectedFile(null);
       } catch (err) {
         console.error("Error uploading image to Cloudinary:", err);
       }
     } else if (urlLink) {
-      console.log(
-        urlLink
-      )
+      console.log(urlLink);
       postUrl(`${urlLink}`);
       setUrlLink("");
     } else {
@@ -86,7 +97,7 @@ const UploadForm = ({ cityId, fetchData }) => {
         Upload Your Travel Image
       </Typography>
       <InputLabel htmlFor="file-upload">Select a File to Upload</InputLabel>
-      <Box sx={{display:'flex', alignItems:'center', mb:2}}>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
         <TextField
           type="text"
           id="image-upload"
@@ -129,8 +140,9 @@ const UploadForm = ({ cityId, fetchData }) => {
           onClick={handleUpload}
           size="small"
           sx={{ width: "40%", p: 1 }}
+          disabled={loading}
         >
-          Share Your Image
+          {loading ? <CircularProgress /> : "Share Your Image"}
         </Button>
       </Box>
     </Box>
