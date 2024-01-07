@@ -156,7 +156,7 @@ function ShowPage() {
           </ImageList>
         </Grid>
 
-        <TravelPlan/>
+        <TravelPlan cityData={cityData} setItineray={setItineray}/>
 
         <Grid item xs={12} md={6}>
           <Container maxWidth="xs">

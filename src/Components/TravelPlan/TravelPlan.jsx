@@ -6,18 +6,15 @@ import {
   Button,
   Container,
   CssBaseline,
-
 } from "@mui/material";
-import { useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 
-const TravelPlan = () => {
-
+const TravelPlan = ({ cityData, setItineray }) => {
   const [travelDays, setTravelDays] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const validCheck = () => {
     let valid = false;
@@ -73,7 +70,7 @@ const TravelPlan = () => {
     let config = {
       headers: {
         Authorization:
-          "Bearer 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",
+          "Bearer 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",
         "Content-Type": "application/json",
       },
     };
@@ -96,51 +93,48 @@ const TravelPlan = () => {
 
   return (
     <Grid item xs={12} md={6}>
-    <Container maxWidth="xs">
-      <CssBaseline />
-      <Box
-        sx={{
-          marginTop: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography component="h1" variant="h5">
-          Plan Your Itinerary
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <TextField
-            margin="normal"
-            fullWidth
-            type="number"
-            inputProps={{ min: 1 }}
-            label="Number of Days Stay"
-            name="Number"
-            required
-            error={Boolean(error)}
-            helperText={error}
-            onChange={(e) => setTravelDays(e.target.value)}
-            onBlur={handleBlur}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            disabled={loading}
-          >
-            Generate A Travel Plan
-          </Button>
-          {loading && <CircularWithValueLabel />}
+      <Container maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 2,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h5">
+            Plan Your Itinerary
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            <TextField
+              margin="normal"
+              fullWidth
+              type="number"
+              inputProps={{ min: 1 }}
+              label="Number of Days Stay"
+              name="Number"
+              required
+              error={Boolean(error)}
+              helperText={error}
+              onChange={(e) => setTravelDays(e.target.value)}
+              onBlur={handleBlur}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
+            >
+              Generate A Travel Plan
+            </Button>
+            {loading && <CircularWithValueLabel />}
+          </Box>
         </Box>
-      </Box>
-    </Container>
-  </Grid>
+      </Container>
+    </Grid>
+  );
+};
 
-
-  )
-
-}
-
-export default TravelPlan
+export default TravelPlan;
