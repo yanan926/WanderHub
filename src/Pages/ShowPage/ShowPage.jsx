@@ -42,34 +42,36 @@ function ShowPage() {
   const [modalImage, setModalImage] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/destinations/${cityId}/`
+      );
+      console.log(response.data)
+      const data = response.data
+      setCityData({
+        properties: {
+          id: data._id,
+          title: `${data.city}, ${data.state}`,
+          image: data.image.url,
+          imageList: data.imageList,
+          reviews: data.reviews
+        },
+        description: data.description,
+        geometry: data.geometry,
+      });
+        const reviewData = data.reviews.map((data)=>{return { username: data.author.username, reviewText: data.reviewText, reviewValue: data.reviewValue,}})
+        console.log(reviewData)
+        setReviewList([...reviewData,...travelReviews])
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/destinations/${cityId}/`
-        );
-        const data = response.data;
-        setCityData({
-          properties: {
-            id: data._id,
-            title: `${data.city}, ${data.state}`,
-            image: data.image.url,
-            imageList: data.imageList,
-          },
-          description: data.description,
-          geometry: data.geometry,
-          reviews: data.reviews,
-        });
-        if (cityData.reviews) {
-          setReviewList((preList) => [{ ...cityData.reviews, ...preList }]);
-        }
-        console.log(cityId)
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchData();
   }, []);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -155,7 +157,6 @@ function ShowPage() {
         data,
         config
       );
-      console.log(response.data["choices"][0]["message"]["content"]);
       const result = response.data["choices"][0]["message"]["content"];
       setItineray(result);
       setTravelDays(null);
@@ -176,15 +177,12 @@ function ShowPage() {
         );
         const data = response.data;
         console.log(data)
+        fetchData()
       } catch (err) {
         console.log(err);
       }
     };
-    postReview();
-    setReviewList([
-      { key: uuidv4(), name: "Yanan Liu", reviewText, reviewValue },
-      ...reviewList,
-    ]);
+    postReview()
     setReviewText("");
     setReviewValue(0);
   };
@@ -393,7 +391,7 @@ function ShowPage() {
           {reviewList.map((traveller, index) => (
             <TravellerReview
               key={index}
-              name={traveller.name}
+              name={traveller.username}
               reviewText={traveller.reviewText}
               reviewValue={traveller.reviewValue}
             />
