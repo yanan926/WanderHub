@@ -67,13 +67,13 @@ Frontend (Vite)
 Install Dependencies:
 
 Navigate to the frontend directory (/frontend) and run:
-npm i
-Run Development Server:
+- npm i
+- Run Development Server:
 
-Start the Vite development server with:
-npm run dev
-Backend (Express, MongoDB)
-Clone the Backend Repository:
+- Start the Vite development server with:
+- npm run dev
+- Backend (Express, MongoDB)
+- Clone the Backend Repository
 
 Clone the backend repository from WanderHubServer.
 Install Backend Dependencies:
