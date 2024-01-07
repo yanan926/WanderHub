@@ -63,8 +63,36 @@ Planning a trip involves multiple steps, including researching destinations and 
   
 
 ### Installation on developer and production environments
-For client side, user need to insert their own .env file with chatgpt api key.
-The front end is created with vite, user can type 'npm i' and 'npm run dev' after pulling the code from github.
-The back end ( "https://github.com/yanan926/WanderHubServer") used node, express and mongoDB. I have deployed my database to mongoAltas. It should be ready to use. Otherwise, user needs to install mongdb database manully. The seeds file can be run as "node seeds/index.js" to insert all the data to the database. To start this back end, user
-shoud use commands as "npm i" and "nodemon index.js"
+Frontend (Vite)
+Install Dependencies:
+
+Navigate to the frontend directory (/frontend) and run:
+npm i
+Run Development Server:
+
+Start the Vite development server with:
+npm run dev
+Backend (Express, MongoDB)
+Clone the Backend Repository:
+
+Clone the backend repository from WanderHubServer.
+Install Backend Dependencies:
+
+Navigate to the backend directory (/WanderHubServer) and run:
+npm i
+Set Up MongoDB:
+
+The database is deployed on MongoDB Atlas, ready for use. If needed, install MongoDB manually.
+
+Seed the Database:
+
+Run the seeds file to insert data into the local database:
+node seeds/index.js
+
+Start the Backend Server:
+
+Start the backend server with:
+npm i
+nodemon index.js
+
 
