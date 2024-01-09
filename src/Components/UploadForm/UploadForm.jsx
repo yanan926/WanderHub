@@ -57,7 +57,7 @@ const UploadForm = ({ cityId, fetchData }) => {
         formData.append("file", selectedFile);
         // Upload file to Cloudinary
         const response = await axios.post(
-          "http://localhost:8080/upload",
+          "https://wanderhubserver.onrender.com/upload",
           formData
         );
         console.log("Image uploaded to Cloudinary:", response.data.imageUrl);

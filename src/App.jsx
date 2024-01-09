@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/destinations`);
+        const response = await axios.get(`https://wanderhubserver.onrender.com/destinations`);
         let destionationData = response.data.map((data) => {
           return {
             properties: {

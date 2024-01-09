@@ -54,7 +54,7 @@ export default function RegisterPage() {
     const registerUser = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/register`, {username, email, password}
+          `https://wanderhubserver.onrender.com/register`, {username, email, password}
         );
         Notification.success("Sign Up Successfully!");
         navigate("/login")

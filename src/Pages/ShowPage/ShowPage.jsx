@@ -82,7 +82,7 @@ function ShowPage() {
     const postReview = async () => {
       try {
         const response = await axios.post(
-          `http://localhost:8080/destinations/reviews/${cityId}`,
+          `https://wanderhubserver.onrender.com/destinations/reviews/${cityId}`,
           {reviewText, reviewValue, userId}
         );
         const data = response.data;
