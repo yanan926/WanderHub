@@ -32,7 +32,7 @@ const UploadForm = ({ cityId, fetchData }) => {
   const postUrl = async (url) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/destinations/${cityId}`,
+        `https://wanderhubserver.onrender.com/destinations/${cityId}`,
         { url: `${url}` }
       );
       const data = response.data;

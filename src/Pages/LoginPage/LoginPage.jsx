@@ -50,7 +50,7 @@ export default function LoginPage({handleLogin}) {
         try {
             //send axios request to login user
             const response = await axios
-                .post("http://localhost:8080/login",
+                .post("https://wanderhubserver.onrender.com/login",
                 {
                     username,
                     password
