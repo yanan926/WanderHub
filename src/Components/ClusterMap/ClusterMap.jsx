@@ -105,7 +105,7 @@ const ClusterMap = ({ cities }) => {
 
         new mapboxgl.Popup()
           .setLngLat(coordinates)
-          .setHTML(`<strong><a href="/city/${cityId}">${cityTitle}</a></strong>`)
+          .setHTML(`<strong><a href="/${cityId}">${cityTitle}</a></strong>`)
           .addTo(map);
       });
 

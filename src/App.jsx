@@ -73,7 +73,7 @@ function App() {
             }
           />
           <Route
-            path="/city/:cityId"
+            path="/:cityId"
             element={
               Boolean(token) ? (
                 <ShowPage
