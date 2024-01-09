@@ -43,7 +43,7 @@ function HomePage({citiesData}) {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Link to={`/city/${card.properties.id}`}>
+                <Link to={`/${card.properties.id}`}>
                   <Button size="small">View</Button>
                 </Link>
               </CardActions>
