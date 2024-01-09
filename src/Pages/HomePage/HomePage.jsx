@@ -8,18 +8,28 @@ import {
   Grid,
   CardActions,
   Button,
+  CircularProgress
 } from "@mui/material";
 
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function HomePage({citiesData}) {
-  return (
+function HomePage({ citiesData }) {
+  return citiesData.length === 0 ? (
+    <Container
+      maxWidth="lg"
+      sx={{
+        height: "50vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {" "}
+      <CircularProgress style={{ width: "80px", height: "80px" }} />
+    </Container>
+  ) : (
     <Container maxWidth="lg">
-      {citiesData.length > 0 ? (
-        <ClusterMap cities={citiesData} />
-      ) : (
-        <div>Loading map...</div>
-      )}
+      <ClusterMap cities={citiesData} />
       <Grid container spacing={4} sx={{ marginTop: "1rem" }}>
         {citiesData.map((card) => (
           <Grid item key={card.properties.id} xs={12} sm={6} md={4}>
@@ -38,9 +48,7 @@ function HomePage({citiesData}) {
                 <Typography gutterBottom variant="h5" component="h2">
                   {card.properties.title}
                 </Typography>
-                <Typography>
-                  {`${card.description}`}
-                </Typography>
+                <Typography>{`${card.description}`}</Typography>
               </CardContent>
               <CardActions>
                 <Link to={`/${card.properties.id}`}>
@@ -52,7 +60,6 @@ function HomePage({citiesData}) {
         ))}
       </Grid>
     </Container>
-    
   );
 }
 
