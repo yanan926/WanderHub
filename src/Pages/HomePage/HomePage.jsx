@@ -18,7 +18,7 @@ function HomePage({ citiesData }) {
     <Container
       maxWidth="lg"
       sx={{
-        height: "50vw",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
