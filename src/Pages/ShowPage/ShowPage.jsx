@@ -41,7 +41,7 @@ function ShowPage() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/destinations/${cityId}/`
+        `https://wanderhubserver.onrender.com/destinations/${cityId}/`
       );
       // console.log(response.data)
       const data = response.data
