@@ -43,7 +43,6 @@ function ShowPage() {
       const response = await axios.get(
         `https://wanderhubserver.onrender.com/destinations/${cityId}/`
       );
-      // console.log(response.data)
       const data = response.data
       setCityData({
         properties: {
