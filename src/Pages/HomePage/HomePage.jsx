@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 import { Link } from "react-router-dom";
+import CircularWithValueLabel from "../../Components/CircularWithValueLabel";
 
 function HomePage({ citiesData }) {
   return citiesData.length === 0 ? (
@@ -20,12 +21,15 @@ function HomePage({ citiesData }) {
       sx={{
         height: "100vh",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
       {" "}
-      <CircularProgress style={{ width: "80px", height: "80px" }} />
+      <Typography variant="h5">Patience, please! Our server briefly deactivates  after 15 minutes of inactivity, reactivating it upon new requests. This process, lasting a few seconds, may cause a momentary delay during initial page loads.</Typography>
+      <Container sx={{mt:5}}> <CircularWithValueLabel style={{ width: "80px", height: "80px" }} /></Container>
+     
     </Container>
   ) : (
     <Container maxWidth="lg">
